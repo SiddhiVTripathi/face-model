@@ -1,3 +1,6 @@
 dataset/
 output/
 nn4.small2.v1.t7
+face_detection_model/
+rbg2ir_try/__pycache__
+images/
