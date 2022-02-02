@@ -1,8 +1,10 @@
 # import the necessary packages
 from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import SVC
+from sklearn.neural_network import MLPClassifier
 import argparse
 import pickle
+import os
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-e", "--embeddings", required=True,
@@ -19,9 +21,9 @@ data = pickle.loads(open(args["embeddings"], "rb").read())
 print("[INFO] encoding labels...")
 le = LabelEncoder()
 labels = le.fit_transform(data["names"])
-
+# output/embeddings.pickle 
 print("[INFO] training model...")
-recognizer = SVC(C=1.0, kernel="linear", probability=True)
+recognizer = clf = MLPClassifier(solver='lbfgs', alpha=1e-5,hidden_layer_sizes=(5, 2), random_state=1)
 recognizer.fit(data["embeddings"], labels)
 
 f = open(args["recognizer"], "wb")
