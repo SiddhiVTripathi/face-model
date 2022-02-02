@@ -7,6 +7,10 @@ import pickle
 import time
 import cv2
 import os
+import tensorflow as tf
+from tensorflow import keras
+
+
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--detector", required=True,
@@ -29,8 +33,11 @@ detector = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
 # load our serialized face embedding model from disk
 print("[INFO] loading face recognizer...")
 embedder = cv2.dnn.readNetFromTorch(args["embedding_model"])
+
 # load the actual face recognition model along with the label encoder
-recognizer = pickle.loads(open(args["recognizer"], "rb").read())
+recognizer = tf.keras.models.load_model('output/model')
+recognizer.summary()
+
 le = pickle.loads(open(args["le"], "rb").read())
 print("[INFO] starting video stream...")
 vs = VideoStream(src=0).start()
@@ -79,7 +86,7 @@ while True:
 			embedder.setInput(faceBlob)
 			vec = embedder.forward()
 			# perform classification to recognize the face
-			preds = recognizer.predict_proba(vec)[0]
+			preds = recognizer.predict(vec)[0]
 			j = np.argmax(preds)
 			proba = preds[j]
 			name = le.classes_[j]
