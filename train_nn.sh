@@ -1,0 +1,1 @@
+python3 train_nn.py --embeddings output/embeddings.pickle --recognizer output/recognizer --le output/le.pickle
