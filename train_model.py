@@ -23,7 +23,7 @@ le = LabelEncoder()
 labels = le.fit_transform(data["names"])
 # output/embeddings.pickle 
 print("[INFO] training model...")
-recognizer = clf = MLPClassifier(solver='lbfgs', alpha=1e-5,hidden_layer_sizes=(5, 2), random_state=1)
+recognizer =  MLPClassifier(solver='lbfgs', alpha=1e-5,hidden_layer_sizes=(5, 2), random_state=1)
 recognizer.fit(data["embeddings"], labels)
 
 f = open(args["recognizer"], "wb")
