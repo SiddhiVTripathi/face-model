@@ -34,8 +34,8 @@ print("[INFO] training model...")
 
 def create_model():
 	model = tf.keras.models.Sequential([
-    keras.layers.Dense(64, activation='relu', input_shape=(128,)),
-    keras.layers.Dropout(0.2),
+    keras.layers.Dense(32, activation='relu', input_shape=(128,)),
+    keras.layers.Dense(32,activation='relu'),
     keras.layers.Dense(u_names)
   ])
 	model.compile(optimizer='adam',
@@ -46,7 +46,7 @@ def create_model():
 
 recognizer = create_model()
 recognizer.summary()
-recognizer.fit(np.array(data['embeddings']),labels,epochs=5)
+recognizer.fit(np.array(data['embeddings']),labels,epochs=20)
 
 recognizer.save("output/model")
 

@@ -1,5 +1,6 @@
 from imutils.video import VideoStream
 from imutils.video import FPS
+import datetime
 import numpy as np
 import argparse
 import imutils
@@ -38,6 +39,7 @@ embedder = cv2.dnn.readNetFromTorch(args["embedding_model"])
 recognizer = tf.keras.models.load_model('output/model')
 recognizer.summary()
 
+text = 'No face'
 le = pickle.loads(open(args["le"], "rb").read())
 print("[INFO] starting video stream...")
 vs = VideoStream(src=0).start()
@@ -100,7 +102,10 @@ while True:
 				cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 	# update the FPS counter
 	fps.update()
-    	# show the output frame
+    # show the output frame
+	# print(type(fps._numFrames//(datetime.datetime.now()- fps._start).total_seconds()))
+	cv2.putText(frame, text, (startX, y),
+				cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 	cv2.imshow("Frame", frame)
 	key = cv2.waitKey(1) & 0xFF
 	# if the `q` key was pressed, break from the loop

@@ -5,6 +5,7 @@ import imutils
 import pickle
 import cv2
 import os
+import tensorflow as tf
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,
@@ -30,7 +31,8 @@ detector = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
 print("[INFO] loading face recognizer...")
 embedder = cv2.dnn.readNetFromTorch(args["embedding_model"])
 # load the actual face recognition model along with the label encoder
-recognizer = pickle.loads(open(args["recognizer"], "rb").read())
+recognizer = tf.keras.models.load_model('output/model')
+recognizer.summary()
 le = pickle.loads(open(args["le"], "rb").read())
 
 image = cv2.imread(args["image"])
@@ -65,7 +67,7 @@ for i in range(0, detections.shape[2]):
 		embedder.setInput(faceBlob)
 		vec = embedder.forward()
 		# perform classification to recognize the face
-		preds = recognizer.predict_proba(vec)[0]
+		preds = recognizer.predict(vec)[0]
 		j = np.argmax(preds)
 		proba = preds[j]
 		name = le.classes_[j]

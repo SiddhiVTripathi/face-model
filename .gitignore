@@ -6,3 +6,6 @@ rbg2ir_try/__pycache__
 images
 __pycache__
 restart.sh
+rec_lite.py
+rec.sh
+tf2tflite.py
