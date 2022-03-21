@@ -64,6 +64,7 @@ while True:
 	detector.setInput(imageBlob)
 	detections = detector.forward()
     # loop over the detections
+	startX, y = 0,0
 	for i in range(0, detections.shape[2]):
 		# extract the confidence (i.e., probability) associated with
 		# the prediction
@@ -90,6 +91,7 @@ while True:
 			# perform classification to recognize the face
 			preds = recognizer.predict(vec)[0]
 			j = np.argmax(preds)
+			# print(vec.shape)
 			proba = preds[j]
 			name = le.classes_[j]
 			# draw the bounding box of the face along with the
