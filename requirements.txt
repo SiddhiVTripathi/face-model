@@ -3,3 +3,4 @@ opencv-python
 imutils
 pyyaml
 h5py 
+sklearn

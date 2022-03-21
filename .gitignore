@@ -1,5 +1,5 @@
-dataset/
-output/
+dataset/*
+output/*
 nn4.small2.v1.t7
 face_detection_model/
 rbg2ir_try/__pycache__
@@ -9,3 +9,4 @@ restart.sh
 rec_lite.py
 rec.sh
 tf2tflite.py
+openface.nn4.small2.v1.t7
