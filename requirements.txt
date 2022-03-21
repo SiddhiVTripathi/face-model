@@ -4,3 +4,4 @@ imutils
 pyyaml
 h5py 
 sklearn
+tensorflow
